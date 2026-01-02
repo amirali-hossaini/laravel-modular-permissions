@@ -8,6 +8,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         api: [
             app_path('Modules/Authentication/Routes/api.php'),
+            app_path('Modules/Blog/Routes/api.php'),
         ],
         commands: __DIR__.'/../routes/console.php',
     )
