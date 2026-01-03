@@ -110,6 +110,36 @@ class PermissionSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
+                [
+                    'id' => 17,
+                    'name' => 'user.users.index',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 18,
+                    'name' => 'user.users.store',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 19,
+                    'name' => 'user.users.show',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 20,
+                    'name' => 'user.users.update',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 21,
+                    'name' => 'user.users.destroy',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
             ];
 
             Permission::insertOrIgnore($data);
