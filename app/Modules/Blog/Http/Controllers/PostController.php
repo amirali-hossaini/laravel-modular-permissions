@@ -3,6 +3,7 @@
 namespace App\Modules\Blog\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\AccessControl\Services\AccessControlService;
 use App\Modules\Blog\Data\PostData;
 use App\Modules\Blog\Http\Requests\PostRequest;
 use App\Modules\Blog\Http\Resources\PostResource;
@@ -14,11 +15,14 @@ use Illuminate\Http\Response;
 class PostController extends Controller
 {
     public function __construct(
+        private readonly AccessControlService $accessControlService,
         private readonly PostRepositoryInterface $postRepository,
     ) {}
 
     public function index(): JsonResponse
     {
+        $this->accessControlService->isAbleTo('blog.posts.index');
+
         $posts = $this->postRepository->all(['user']);
 
         return apiResponse()
@@ -29,6 +33,8 @@ class PostController extends Controller
 
     public function store(PostRequest $request): JsonResponse
     {
+        $this->accessControlService->isAbleTo('blog.posts.store');
+
         $post = $this->postRepository->create(PostData::from([
             ...$request->validated(),
             'user_id' => auth()->id(),
@@ -44,6 +50,8 @@ class PostController extends Controller
 
     public function show(Post $post): JsonResponse
     {
+        $this->accessControlService->isAbleTo('blog.posts.show');
+
         return apiResponse()
             ->data($post->load('user'))
             ->jsonResource(PostResource::class)
@@ -52,6 +60,8 @@ class PostController extends Controller
 
     public function update(Post $post, PostRequest $request): JsonResponse
     {
+        $this->accessControlService->isAbleTo('blog.posts.update');
+
         $this->postRepository->update($post, $request->validated());
 
         return apiResponse()->message('The post has been successfully updated.')->get();
@@ -59,6 +69,8 @@ class PostController extends Controller
 
     public function destroy(Post $post): JsonResponse
     {
+        $this->accessControlService->isAbleTo('blog.posts.destroy');
+
         $this->postRepository->delete($post);
 
         return apiResponse()->message('The post has been successfully deleted.')->get();
