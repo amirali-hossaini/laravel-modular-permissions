@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Modules\AccessControl\Repositories\Interfaces\RoleRepositoryInterface;
+use App\Modules\AccessControl\Repositories\RoleRepository;
 use App\Modules\Blog\Repositories\Interfaces\PostRepositoryInterface;
 use App\Modules\Blog\Repositories\PostRepository;
 use App\Modules\User\Repositories\Interfaces\UserRepositoryInterface;
@@ -14,5 +16,6 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UserRepositoryInterface::class, UserRepository::class);
         $this->app->singleton(PostRepositoryInterface::class, PostRepository::class);
+        $this->app->singleton(RoleRepositoryInterface::class, RoleRepository::class);
     }
 }
