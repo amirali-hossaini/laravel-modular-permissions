@@ -42,7 +42,7 @@ class UserTest extends TestCase
             'permission_ids' => [1, 2],
         ];
 
-        $this->post(self::API_PREFIX, $data)
+        $response = $this->post(self::API_PREFIX, $data)
             ->assertCreated()
             ->assertJsonFragment([
                 'name' => $data['name'],
@@ -52,6 +52,16 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => $data['name'],
             'email' => $data['email'],
+        ]);
+
+        $this->assertDatabaseHas('permission_user', [
+            'user_id' => $response->json('data.id'),
+            'permission_id' => 1,
+        ]);
+
+        $this->assertDatabaseHas('permission_user', [
+            'user_id' => $response->json('data.id'),
+            'permission_id' => 2,
         ]);
     }
 

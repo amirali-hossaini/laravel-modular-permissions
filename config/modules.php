@@ -17,4 +17,22 @@ return [
          */
         'token_ttl_hours' => 24,
     ],
+
+    /**
+     * Access Control module settings
+     */
+    'access_control' => [
+        'cache' => [
+            /**
+             * User permissions cache TTL in minutes.
+             * Suggested range: 30–60 minutes.
+             */
+            'ttl_minutes' => 60,
+
+            /**
+             * Cache key prefix for user permission entries.
+             */
+            'prefix' => 'user_permissions',
+        ],
+    ],
 ];
