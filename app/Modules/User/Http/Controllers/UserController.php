@@ -68,6 +68,8 @@ class UserController extends Controller
 
         $this->userRepository->updateAndSyncPermissions($user, UserData::from($data));
 
+        $this->accessControlService->clearUserPermissionsCache($user->id);
+
         return apiResponse()->message('The user has been successfully updated.')->get();
     }
 
@@ -83,6 +85,8 @@ class UserController extends Controller
         }
 
         $this->userRepository->delete($user);
+
+        $this->accessControlService->clearUserPermissionsCache($user->id);
 
         return apiResponse()->message('The user has been successfully deleted.')->get();
     }

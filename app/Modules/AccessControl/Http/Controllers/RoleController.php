@@ -62,12 +62,16 @@ class RoleController extends Controller
 
         $this->roleRepository->update($role, RoleData::from($request->validated()));
 
+        $this->accessControlService->clearPermissionsCacheForRoleUsers($role);
+
         return apiResponse()->message('The role has been successfully updated.')->get();
     }
 
     public function destroy(Role $role): JsonResponse
     {
         $this->accessControlService->isAbleTo('access_control.roles.destroy');
+
+        $this->accessControlService->clearPermissionsCacheForRoleUsers($role);
 
         $this->roleRepository->delete($role);
 

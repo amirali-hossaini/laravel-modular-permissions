@@ -62,12 +62,16 @@ class OrganizationalChartController extends Controller
 
         $this->chartRepository->update($organizationalChart, OrganizationalChartData::from($request->validated()));
 
+        $this->accessControlService->clearPermissionsCacheForChartUsers($organizationalChart);
+
         return apiResponse()->message('The organizational chart has been successfully updated.')->get();
     }
 
     public function destroy(OrganizationalChart $organizationalChart): JsonResponse
     {
         $this->accessControlService->isAbleTo('access_control.organizational_charts.destroy');
+
+        $this->accessControlService->clearPermissionsCacheForChartUsers($organizationalChart);
 
         $this->chartRepository->delete($organizationalChart);
 
