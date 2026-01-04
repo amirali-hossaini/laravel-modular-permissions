@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('permission_organizational_chart', function (Blueprint $table) {
-            $table->foreignId('permission_id')->constrained()->cascadeOnDelete();
+        Schema::create('organizational_chart_permission', function (Blueprint $table) {
             $table->foreignId('organizational_chart_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('permission_id')->constrained()->cascadeOnDelete();
 
-            $table->primary(['permission_id', 'organizational_chart_id']);
+            $table->primary(['organizational_chart_id', 'permission_id']);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('permission_organizational_chart');
+        Schema::dropIfExists('organizational_chart_permission');
     }
 };
