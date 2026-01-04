@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Modules\AccessControl\Models\OrganizationalChart;
 use App\Modules\AccessControl\Models\Permission;
 use App\Modules\AccessControl\Models\Role;
 use App\Modules\Blog\Models\Post;
@@ -16,13 +17,16 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        // permissions
         $this->call(PermissionSeeder::class);
 
+        // users
         $user = User::factory()->create([
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
         ]);
 
+        // roles
         $role = Role::factory()->create([
             'name' => 'admin',
         ]);
@@ -31,7 +35,15 @@ class DatabaseSeeder extends Seeder
 
         $user->roles()->attach($role);
 
+        // posts
         Post::factory()->count(5)->state(['user_id' => $user->id])->create();
         Post::factory()->count(10)->create();
+
+        // organizational charts
+        $chart = OrganizationalChart::factory()->create([
+            'name' => 'Management',
+        ]);
+
+        $user->organizationalCharts()->attach($chart);
     }
 }
