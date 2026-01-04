@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Modules\AccessControl\Repositories\Interfaces\OrganizationalChartRepositoryInterface;
+use App\Modules\AccessControl\Repositories\Interfaces\PermissionRepositoryInterface;
 use App\Modules\AccessControl\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Modules\AccessControl\Repositories\OrganizationalChartRepository;
+use App\Modules\AccessControl\Repositories\PermissionRepository;
 use App\Modules\AccessControl\Repositories\RoleRepository;
 use App\Modules\Blog\Repositories\Interfaces\PostRepositoryInterface;
 use App\Modules\Blog\Repositories\PostRepository;
@@ -20,5 +22,6 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->singleton(PostRepositoryInterface::class, PostRepository::class);
         $this->app->singleton(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->singleton(OrganizationalChartRepositoryInterface::class, OrganizationalChartRepository::class);
+        $this->app->singleton(PermissionRepositoryInterface::class, PermissionRepository::class);
     }
 }
